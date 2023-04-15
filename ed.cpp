@@ -107,10 +107,10 @@ int binarySearch(vector<int> &v, int L, int R, int x){
 		return mid;
 
 	if(v[mid]>x)
-		return binarySearch(v,L,mid-1,x);
+		return binarySearch(v,L,mid,x);
 
 	if(v[mid]<x)
-		return binarySearch(v,mid-1,R,x);
+		return binarySearch(v,mid,R,x);
 
 	return -1;
 }
@@ -126,9 +126,8 @@ int main(){
 	cout<<"Result of linear search: "<<idx<<endl;
 
 	//remember to sort the vector before using binary search
-	idx = binarySearch(v,0,v.size()-1,36);
+	idx = binarySearch(v,0,v.size(),36);
 	cout<<"Result of binary search: "<<idx<<endl;
 
 	return 0;	
 }
-
