@@ -102,15 +102,15 @@ int binarySearch(vector<int> &v, int L, int R, int x){
 		-1 = if the item wasn't found
 	*/
 	int n=v.size();
-	int mid = (R+L)/2;
+	int mid = R+(R-L)/2;
 	if(v[mid]==x)
 		return mid;
 
 	if(v[mid]>x)
-		return binarySearch(v,L,mid,x);
+		return binarySearch(v,L,mid-1,x);
 
 	if(v[mid]<x)
-		return binarySearch(v,mid,R,x);
+		return binarySearch(v,mid+1,R,x);
 
 	return -1;
 }
