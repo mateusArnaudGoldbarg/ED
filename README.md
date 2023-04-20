@@ -7,7 +7,8 @@ Here you will find all the algorithms used in Data Structure classes
 - Sort Algorithms:
   - Bubble Sort
   - Selection Sort
-  - ...
+  - Insertion Sort
+  ...
 
 More algorithms will be added during the classes
 
