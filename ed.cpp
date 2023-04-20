@@ -1,6 +1,6 @@
 /*
 Created by Mateus Goldbarg
-Date: 04/15/2023
+Date: 04/20/2023
 */
 
 #include <iostream>
@@ -19,6 +19,30 @@ void printArray(vector<int> &v){
 
 
 //--------------------------------sort algorithms---------------------------
+
+//insertion sort
+void insertionSort(vector<int> v){
+	/*
+		Parameters:
+		v = input array to be ordered
+	*/
+	int n=v.size();
+	int i,key,j;
+	cout<<"unordered array:\n";
+	printArray(v);
+	for(i=1;i<n;i++){
+		key=v[i];
+		j=i-1;
+		while(j>=0&&v[j]>key){
+			v[j+1]=v[j];
+			j=j-1;
+		}
+		v[j+1]=key;
+	}
+	cout<<"ordered by insertion sort:\n";
+	printArray(v);
+}
+
 
 //bubble sort
 void bubbleSort(vector<int> &v){
@@ -120,8 +144,9 @@ int main(){
 	int idx;
 	
 	//bubbleSort(v);
-	selectionSort(v);
-	
+	//selectionSort(v);
+	insertionSort(v);
+		
 	idx = linearSearch(v,36);
 	cout<<"Result of linear search: "<<idx<<endl;
 
