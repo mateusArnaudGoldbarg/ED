@@ -1,6 +1,6 @@
 /*
 Created by Mateus Goldbarg
-Date: 04/20/2023
+Date: 04/15/2023
 */
 
 #include <iostream>
@@ -17,19 +17,74 @@ void printArray(vector<int> &v){
 	cout<<endl;
 }
 
+//function to swap elements
+void swap(int* a, int* b){
+	int t = *a;
+	*a = *b;
+	*b = t;
+}
+
 
 //--------------------------------sort algorithms---------------------------
 
-//insertion sort
-void insertionSort(vector<int> v){
+//+++++++++++++++++++++++quick sort++++++++++++++++++++++++++++++
+int partition(vector<int> &v, int low, int high){
+	/*
+		Parameters:
+		v = input array to be ordered
+		low = left index
+		high = right index
+	*/
+	int pivot = v[high];
+	int i = (low - 1);
+	for (int j = low; j <= high - 1; j++) {
+		if (v[j] < pivot) {
+			i++;
+			swap(&v[i], &v[j]);
+		}
+	}
+	swap(&v[i + 1], &v[high]);
+	return (i + 1);
+}
+
+void quickSort(vector<int> &v, int low, int high){
+	if (low < high) { 
+		int pi = partition(v, low, high);
+		quickSort(v, low, pi - 1);
+		quickSort(v, pi + 1, high);
+	}
+}
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+//shell sort
+void shellSort(vector<int> &v){
+	/*
+		Parameters:
+		v = input array to be ordered
+	*/
+	int n=v.size();
+	for (int h=n/2; h>0;h/=2){
+		for (int i=h;i<n;i+=1){
+			int temp=v[i];
+			int j;
+			for (j=i;j>=h && v[j-h]>temp;j-=h)
+				v[j]=v[j-h];
+			v[j]=temp;
+		}
+	}
+}
+
+//insertion sort O(n²)
+void insertionSort(vector<int> &v){
 	/*
 		Parameters:
 		v = input array to be ordered
 	*/
 	int n=v.size();
 	int i,key,j;
-	cout<<"unordered array:\n";
-	printArray(v);
 	for(i=1;i<n;i++){
 		key=v[i];
 		j=i-1;
@@ -39,20 +94,16 @@ void insertionSort(vector<int> v){
 		}
 		v[j+1]=key;
 	}
-	cout<<"ordered by insertion sort:\n";
-	printArray(v);
 }
 
 
-//bubble sort
+//bubble sort O(n²)
 void bubbleSort(vector<int> &v){
 	/*
 		Parameters:
 		v = input array to be ordered
 	*/
 	int n=v.size();
-	cout<<"unordered array:\n";
-	printArray(v);
 	for(int i=0;i<n-1;i++){
 		for (int j=0;j<n-i-1;j++){
 			if(v[j]>v[j+1]){
@@ -62,11 +113,9 @@ void bubbleSort(vector<int> &v){
 			} 
 		}
 	}
-	cout<<"ordered by bubble sort:\n";
-	printArray(v);
 }
 
-//selection sort
+//selection sort O(n²)
 void selectionSort(vector<int> &v){
 	/*
 		Parameters:
@@ -74,8 +123,6 @@ void selectionSort(vector<int> &v){
 	*/
 	int min_idx;
 	int n=v.size();
-	cout<<"unordered array:\n";
-	printArray(v);
 	for(int i=0;i<n-1;i++){
 		min_idx=i;
 		for(int j=i+1;j<n;j++){
@@ -88,13 +135,11 @@ void selectionSort(vector<int> &v){
 			v[i]=temp;
 		}
 	}
-	cout<<"ordered selection sort:\n";
-	printArray(v);
 }
 
 //--------------------------------search algorithms---------------------------
 
-//busca sequencial
+//busca sequencial O(n)
 int linearSearch(vector<int> &v,int x){
 	/*
 		Parameters:
@@ -112,7 +157,7 @@ int linearSearch(vector<int> &v,int x){
 	return -1;
 }
 
-//busca binária
+//busca binária O(log(n))
 int binarySearch(vector<int> &v, int L, int R, int x){
 	/*
 		Parameters:
@@ -126,7 +171,7 @@ int binarySearch(vector<int> &v, int L, int R, int x){
 		-1 = if the item wasn't found
 	*/
 	int n=v.size();
-	int mid = R+(R-L)/2;
+	int mid = L+(R-L)/2;
 	if(v[mid]==x)
 		return mid;
 
@@ -140,18 +185,26 @@ int binarySearch(vector<int> &v, int L, int R, int x){
 }
 
 int main(){
-	vector<int> v={14,76,2,36,12,25,1,9,1992,5,98,11,23,825};
+	vector<int> v={78,2,7,97,14,1,27,60};
 	int idx;
+	
+	cout<<"unordered array:\n";
+	printArray(v);
 	
 	//bubbleSort(v);
 	//selectionSort(v);
-	insertionSort(v);
-		
-	idx = linearSearch(v,36);
+	//insertionSort(v);
+	//shellSort(v);
+	quickSort(v,0,v.size()-1);
+	
+	cout<<"ordered array:\n";
+	printArray(v);
+	
+	idx = linearSearch(v,27);
 	cout<<"Result of linear search: "<<idx<<endl;
 
 	//remember to sort the vector before using binary search
-	idx = binarySearch(v,0,v.size(),36);
+	idx = binarySearch(v,0,v.size(),27);
 	cout<<"Result of binary search: "<<idx<<endl;
 
 	return 0;	
