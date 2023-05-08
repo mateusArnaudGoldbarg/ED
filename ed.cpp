@@ -26,15 +26,56 @@ void swap(int* a, int* b){
 
 
 //--------------------------------sort algorithms---------------------------
+//+++++++++++++++++++++++merge sort++++++++++++++++++++++++++++++
+void merge(vector<int> &v, int low, int high, int mid){
+	int i, j, k, c[50];
+	i = low;
+	k = low;
+	j = mid + 1;
+    	while (i <= mid && j <= high){
+        	if (v[i] < v[j]){
+            		c[k] = v[i];
+            		k++;
+            		i++;
+        	}
+        	else{
+            		c[k] = v[j];
+            		k++;
+            		j++;
+        	}
+    	}
+    	while (i <= mid){
+        	c[k] = v[i];
+        	k++;
+        	i++;
+    	}
+    	while (j <= high){
+        	c[k] = v[j];
+        	k++;
+        	j++;
+    	}
+    	for (i = low; i < k; i++){
+        	v[i] = c[i];
+    	}
+}
+
+void mergeSort(vector<int> &v, int low, int high){
+	if(low<high){
+		int mid;
+		mid = (low+high)/2;
+		mergeSort(v, low, mid);
+		mergeSort(v, mid+1, high);
+		merge(v,low,high,mid);
+	}
+
+}
+
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
 //+++++++++++++++++++++++quick sort++++++++++++++++++++++++++++++
 int partition(vector<int> &v, int low, int high){
-	/*
-		Parameters:
-		v = input array to be ordered
-		low = left index
-		high = right index
-	*/
 	int pivot = v[high];
 	int i = (low - 1);
 	for (int j = low; j <= high - 1; j++) {
@@ -195,7 +236,8 @@ int main(){
 	//selectionSort(v);
 	//insertionSort(v);
 	//shellSort(v);
-	quickSort(v,0,v.size()-1);
+	//quickSort(v,0,v.size()-1);
+	mergeSort(v,0,v.size()-1);
 	
 	cout<<"ordered array:\n";
 	printArray(v);
