@@ -10,9 +10,7 @@ Here you will find all the algorithms used in Data Structure classes
   - Insertion Sort
   - Shell Sort
   - Quick Sort
-  - ...
-
-More algorithms will be added during the classes
+  - Merge sort
 
 To compile use:
 ```
