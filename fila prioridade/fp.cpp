@@ -20,7 +20,7 @@ public:
         front = nullptr;
     }
     
-    //empilhar
+    //enfileirar
     void enqueue(int priority, const std::string& data) {
         Node* newNode = new Node(priority, data);
         // Caso especial: se a fila estiver vazia ou o novo nó tem prioridade maior que a frente
@@ -39,7 +39,7 @@ public:
         }
     }
     
-    //desempilhar
+    //desenfileirar
     void dequeue() {
         if (!isEmpty()) {
             Node* nodeToDelete = front;
